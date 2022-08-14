@@ -29,9 +29,7 @@ function effect() {
   document.body.innerText = obj.text;
 }
 
-// 执行副作用函数，触发读取
-effect()
-
+ 
 setTimeout(() => {
   obj.text = 'Hello World2';
 })
