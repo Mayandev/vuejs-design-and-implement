@@ -15,7 +15,7 @@ const obj = new Proxy(data, {
   },
   // 拦截写入操作
   set(target, key, newVal) {
-    // 设置属性值ß
+    // 设置属性值
     target[key] = newVal;
     trigger(target, key);
   }
@@ -49,7 +49,7 @@ function trigger(target, key) {
   // 临时的 set
   const effectsToRun = new Set(effects);
   // 将副作用函数 effect 取出并执行
-  effectsToRun && effectsToRun.forEach(effect => effect());
+  effectsToRun && effectsToRun.forEach(effectFn => effectFn());
 }
 
 function cleanup(effectFn) {
@@ -88,13 +88,7 @@ function effect(fn) {
 
 // 执行副作用函数，触发读取
 effect(() => {
-  console.log('effect run'); // 运行两次
-  document.body.innerText = obj.ok ? obj.text : 'not';
+  console.log(obj.text)
 })
-setTimeout(() => {
-  obj.ok = false;
-}, 1000)
 
-setTimeout(() => {
-  obj.text = 'Hello World2';
-}, 2000)
+obj.text = 1
